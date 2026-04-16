@@ -1,0 +1,52 @@
+# 브랜치명에서 이슈 번호(#123)를 추출하여 커밋 메시지 끝에 자동으로 추가한다.
+# 예) 브랜치 `feat/#17-login-api` + 커밋 `feat: 로그인 API 연동`
+#      → `feat: 로그인 API 연동 (#17)`
+
+COMMIT_MSG_FILE="$1"
+COMMIT_SOURCE="$2"
+
+# merge / squash / commit --amend / -m 옵션 등에서는 건너뛰지 않고 처리한다.
+# 단, template / merge 인 경우에는 건드리지 않는다.
+case "$COMMIT_SOURCE" in
+  merge|template|squash)
+    exit 0
+    ;;
+esac
+
+BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD 2>/dev/null || true)
+
+# detached HEAD 등 브랜치를 얻지 못한 경우 종료
+if [ -z "$BRANCH_NAME" ] || [ "$BRANCH_NAME" = "HEAD" ]; then
+  exit 0
+fi
+
+# 브랜치명에서 #숫자 패턴 추출 (예: feat/#17-login-api → 17)
+ISSUE_NUMBER=$(printf "%s" "$BRANCH_NAME" | grep -oE '#[0-9]+' | head -n1 | tr -d '#')
+
+if [ -z "$ISSUE_NUMBER" ]; then
+  exit 0
+fi
+
+# 이미 (#숫자) 패턴이 포함되어 있으면 중복 추가하지 않는다.
+if grep -qE "\(#[0-9]+\)" "$COMMIT_MSG_FILE"; then
+  exit 0
+fi
+
+# 첫 줄(제목)에만 (#이슈번호) 추가. 커멘트 라인(#로 시작)은 건드리지 않는다.
+FIRST_LINE=$(sed -n '1p' "$COMMIT_MSG_FILE")
+
+# 빈 제목이면 건드리지 않는다.
+if [ -z "$FIRST_LINE" ]; then
+  exit 0
+fi
+
+NEW_FIRST_LINE="$FIRST_LINE (#$ISSUE_NUMBER)"
+
+# macOS / Linux 모두 호환되도록 임시 파일 사용
+TMP_FILE=$(mktemp)
+{
+  printf "%s\n" "$NEW_FIRST_LINE"
+  sed -n '2,$p' "$COMMIT_MSG_FILE"
+} > "$TMP_FILE"
+
+mv "$TMP_FILE" "$COMMIT_MSG_FILE"
