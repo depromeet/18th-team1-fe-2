@@ -1,0 +1,107 @@
+name: Deploy to Production
+
+# main 브랜치에 푸시될 때만 실행
+on:
+  push:
+    branches:
+      - main
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  # ─────────────────────────────────────────────
+  # Docker 이미지 빌드 & GHCR 푸시
+  # ─────────────────────────────────────────────
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    outputs:
+      # SHA 기반 이미지 레퍼런스를 deploy job으로 전달 (롤백 시 특정 버전 지정 가능)
+      image-ref: ${{ steps.image-ref.outputs.value }}
+
+    steps:
+      # 소스 코드 체크아웃
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      # GITHUB_TOKEN으로 GHCR 로그인 (별도 PAT 불필요)
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Docker 이미지 태그 생성
+      # - latest: 항상 최신 이미지를 가리키는 고정 태그
+      # - sha-xxxxxxx: 커밋 SHA 기반 태그 (롤백 시 특정 버전 지정 가능)
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+          tags: |
+            type=sha,prefix=sha-,format=short
+            type=raw,value=latest
+
+      # Dockerfile 기반으로 이미지 빌드 후 GHCR에 푸시
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ steps.meta.outputs.tags }}
+
+      # 이번 빌드의 SHA 기반 이미지 레퍼런스를 output으로 저장
+      - name: Set image reference output
+        id: image-ref
+        run: echo "value=${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.version }}" >> $GITHUB_OUTPUT
+
+  # ─────────────────────────────────────────────
+  # Oracle Cloud 서버 배포 (빌드 성공 시에만 실행)
+  # ─────────────────────────────────────────────
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: production
+    permissions:
+      contents: read
+
+    steps:
+      # Oracle Cloud 서버에 SSH 접속하여 컨테이너 교체
+      - name: Deploy to Oracle Cloud
+        uses: appleboy/ssh-action@v1
+        env:
+          GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GHCR_ACTOR: ${{ github.actor }}
+          IMAGE: ${{ needs.build.outputs.image-ref }}
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: GHCR_TOKEN,GHCR_ACTOR,IMAGE
+          script: |
+            # GHCR 로그인 (GITHUB_TOKEN은 워크플로우 실행 동안만 유효)
+            echo "$GHCR_TOKEN" | docker login ghcr.io -u "$GHCR_ACTOR" --password-stdin
+
+            # 최신 이미지 pull
+            docker pull "$IMAGE"
+
+            # 실행 중인 컨테이너 중단 및 삭제 (최초 배포 시 없어도 오류 무시)
+            docker stop dpm-frontend || true
+            docker rm dpm-frontend || true
+
+            # 새 컨테이너 실행
+            # --restart always: 서버 재부팅 시 자동 재시작
+            docker run -d \
+              --name dpm-frontend \
+              --restart always \
+              -p 3000:3000 \
+              "$IMAGE"
+
+            # 이전 이미지 정리 (서버 디스크 공간 확보)
+            docker image prune -f
