@@ -1,18 +1,22 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Nanum_Myeongjo } from "next/font/google";
+import localFont from "next/font/local";
 import type { ReactNode } from "react";
 
 import { Providers } from "./providers";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
+const pretendard = localFont({
+  src: "../../public/fonts/subset-PretendardVariable.woff2",
+  variable: "--font-pretendard",
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const nanumMyeongjo = Nanum_Myeongjo({
+  weight: ["400", "700", "800"],
   subsets: ["latin"],
+  variable: "--font-nanum-myeongjo",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -26,7 +30,7 @@ type RootLayoutProps = {
 
 const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
   return (
-    <html lang="ko" className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="ko" className={`${pretendard.variable} ${nanumMyeongjo.variable}`}>
       <body className="min-h-dvh bg-muted text-foreground antialiased">
         <Providers>
           <div className="min-h-dvh w-full bg-background px-5 md:mx-auto md:max-w-93.75">
