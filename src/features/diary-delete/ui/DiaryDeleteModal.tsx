@@ -21,8 +21,11 @@ export const DiaryDeleteModal = ({
       aria-modal="true"
       aria-labelledby="delete-modal-title"
       className="flex w-71 flex-col gap-7 rounded-[1.25rem] bg-background px-2.5 pb-2.5 pt-7"
-      onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => e.stopPropagation()}
+      onClick={(event: MouseEvent<HTMLDivElement>) => event.stopPropagation()}
+      onKeyDown={(event: KeyboardEvent<HTMLDivElement>) => {
+        event.stopPropagation();
+        if (event.key === "Escape") onCancel?.();
+      }}
     >
       <div className="flex w-full flex-col items-center gap-1.5">
         <h2 id="delete-modal-title" className="subhead1 text-center text-gray-700">
