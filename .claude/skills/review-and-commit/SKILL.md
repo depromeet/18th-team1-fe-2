@@ -24,11 +24,13 @@ git diff --staged
 변경된 파일들을 Read 도구로 읽어 다음 관점에서 검토하라:
 
 ### 보안
+
 - SQL Injection, XSS, CSRF 등 OWASP Top 10 취약점
 - 민감한 정보(API 키, 비밀번호, 토큰) 하드코딩 여부
 - 입력값 검증 누락
 
 ### 코드 컨벤션 (CLAUDE.md 기준)
+
 - 변수/함수 `camelCase`, 컴포넌트/타입 `PascalCase`, 상수 `UPPER_SNAKE_CASE`
 - Arrow Function 사용 및 반환 타입 명시 여부
 - boolean 변수 `is/has/should` 접두사
@@ -39,12 +41,14 @@ git diff --staged
 - Public API barrel export (`index.ts`) 사용 여부
 
 ### 성능
+
 - 불필요한 리렌더링 유발 코드
 - 메모이제이션 누락 (`useMemo`, `useCallback`, `memo`)
 - 무한 루프 가능성
 - 번들 사이즈에 영향을 줄 수 있는 heavy import
 
 ### 코드 퀄리티
+
 - 중복 코드
 - 함수/컴포넌트 책임 과다 (단일 책임 원칙)
 - 타입 안전성 (any 남용, 타입 단언 남용)
@@ -63,6 +67,7 @@ git diff --staged
 ```
 
 심각도 기준:
+
 - **🔴 Critical**: 즉시 수정 필요 (보안 취약점, 빌드 오류)
 - **🟡 Warning**: 수정 권장 (컨벤션 위반, 성능 이슈)
 - **🔵 Info**: 참고 사항 (개선 제안)
@@ -72,6 +77,7 @@ git diff --staged
 ## 3단계: 커밋 그룹화
 
 변경사항을 **논리적으로 연관된 단위**로 그룹화하라. 그룹화 기준:
+
 - 같은 기능/버그수정에 속하는 파일들을 한 커밋으로
 - 설정/인프라 변경은 기능 변경과 분리
 - 문서 변경은 별도 커밋으로 분리
@@ -93,7 +99,8 @@ git diff --staged
 태그는 `docs/commit-convention.md` 기준:
 `feat` `fix` `refactor` `test` `docs` `style` `chore` `ci` `perf` `build` `revert`
 
-커밋 메시지 형식: `{tag}: {내용} ({이슈번호 자동추가됨}`
+커밋 메시지 형식: `{tag}: {내용} ({이슈번호 자동추가됨})`
+
 - 제목은 명령형, 마침표 없이, 50자 이내 권장
 - 브랜치명에 `#숫자` 패턴이 있으면 이슈번호는 husky 훅이 자동 추가
 
@@ -117,6 +124,7 @@ git diff --staged
 사용자가 승인하면 그룹별로 순서대로 커밋을 실행하라.
 
 각 커밋마다:
+
 1. 해당 파일들을 `git add` 로 스테이징
 2. 커밋 메시지 작성 (HEREDOC 형식 사용)
 3. `git status` 로 결과 확인
