@@ -76,7 +76,7 @@ jobs:
           name: storybook-static
           path: storybook-static/
 
-      # storybook-static/ 를 서버의 /opt/storybook/ 로 전송
+      # storybook-static/ 를 서버의 ~/storybook/ 로 전송
       - name: Copy files to server
         uses: appleboy/scp-action@v0.1.7
         with:
@@ -84,7 +84,7 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           source: 'storybook-static/*'
-          target: '/opt/storybook'
+          target: '~/storybook'
           strip_components: 1
           rm: true
 
@@ -103,7 +103,7 @@ jobs:
               --name storybook \
               --restart always \
               -p 6006:80 \
-              -v /opt/storybook:/usr/share/nginx/html:ro \
+              -v ~/storybook:/usr/share/nginx/html:ro \
               nginx:alpine
 
             docker image prune -f
