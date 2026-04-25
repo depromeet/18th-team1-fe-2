@@ -1,8 +1,12 @@
 export { BaseIcon } from "./BaseIcon";
+export { IcBack } from "./IcBack";
 export { IcCalendar } from "./IcCalendar";
+export { IcCheck } from "./IcCheck";
 export { IcEdit } from "./IcEdit";
 export { IcHome } from "./IcHome";
+export { IcOption } from "./IcOption";
 export { IcReport } from "./IcReport";
+export { IcSetting } from "./IcSetting";
 export { IcShare } from "./IcShare";
 export { IcTrash } from "./IcTrash";
 export type { IconProps } from "./icon.types";
