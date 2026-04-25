@@ -1,7 +1,5 @@
 import { BookOpen } from "lucide-react";
 
-import { Button } from "@/shared/ui/button";
-
 const HomePage = (): React.ReactElement => {
   return (
     <div className="flex flex-col items-center gap-8 py-10">
@@ -11,10 +9,6 @@ const HomePage = (): React.ReactElement => {
         <p className="max-w-md text-base text-muted-foreground">
           책 속 문장으로 나의 하루를 기록하는 웹 애플리케이션입니다.
         </p>
-      </div>
-      <div className="flex gap-3">
-        <Button>오늘의 문장 작성하기</Button>
-        <Button variant="outline">문장 모아보기</Button>
       </div>
     </div>
   );

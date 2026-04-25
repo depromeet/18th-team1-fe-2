@@ -31,7 +31,10 @@ type RootLayoutProps = {
 const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
   return (
     <html lang="ko" className={`${pretendard.variable} ${nanumMyeongjo.variable}`}>
-      <body className="min-h-dvh bg-background text-foreground antialiased">
+      <body
+        className="min-h-dvh bg-background text-foreground antialiased"
+        suppressHydrationWarning
+      >
         <Providers>
           <div className="min-h-dvh w-full bg-gray-50 px-5 md:mx-auto md:max-w-93.75">
             {children}
