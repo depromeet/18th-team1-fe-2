@@ -1,0 +1,31 @@
+# CodeRabbit 설정
+# https://docs.coderabbit.ai/guides/configure-coderabbit
+
+language: 'ko-KR'
+
+reviews:
+  # Walkthrough를 접힌 상태로 표시 (PR 본문 간결하게)
+  collapse_walkthrough: true
+
+  # 시 비활성화
+  poem: false
+
+  # PR 본문에 Summary by CodeRabbit 자동 추가 비활성화
+  auto_title_instructions: ''
+  high_level_summary: false
+
+  auto_review:
+    enabled: true
+    drafts: false
+
+  # 리뷰 제외 경로
+  path_filters:
+    - '!**/node_modules/**'
+    - '!**/.next/**'
+    - '!**/pnpm-lock.yaml'
+    - '!**/*.woff'
+    - '!**/*.woff2'
+    - '!**/*.png'
+    - '!**/*.jpg'
+    - '!**/*.svg'
+    - '!**/public/**'
