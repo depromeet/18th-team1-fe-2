@@ -1,8 +1,13 @@
 "use client";
 
+import { cn } from "@/shared/lib/utils";
+
 interface ButtonDoubleProps {
   primaryLabel?: string;
   secondaryLabel?: string;
+  width?: string;
+  height?: string;
+  gap?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
 }
@@ -10,20 +15,29 @@ interface ButtonDoubleProps {
 export const ButtonDouble = ({
   primaryLabel,
   secondaryLabel,
+  width = "w-[335px]",
+  height = "h-14",
+  gap = "gap-2",
   onPrimaryClick,
   onSecondaryClick,
 }: ButtonDoubleProps): React.ReactElement => (
-  <div className="flex w-[335px] items-center gap-2">
+  <div className={cn("flex items-center", width, gap)}>
     <button
       type="button"
-      className="subhead6 flex h-14 flex-1 items-center justify-center rounded-2xl bg-gray-200 capitalize text-gray-500"
+      className={cn(
+        "subhead6 flex flex-1 items-center justify-center rounded-2xl bg-gray-200 text-gray-500",
+        height,
+      )}
       onClick={onSecondaryClick}
     >
       {secondaryLabel}
     </button>
     <button
       type="button"
-      className="subhead6 flex h-14 flex-1 items-center justify-center rounded-2xl bg-gray-700 capitalize text-gray-0"
+      className={cn(
+        "subhead6 flex flex-1 items-center justify-center rounded-2xl bg-gray-700 text-gray-0",
+        height,
+      )}
       onClick={onPrimaryClick}
     >
       {primaryLabel}
