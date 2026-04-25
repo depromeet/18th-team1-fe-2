@@ -11,7 +11,7 @@ export const HomeHeader = ({
   isWritten = false,
   className,
 }: HomeHeaderProps): React.ReactElement => {
-  const today = new Date();
+  const today = new Date(new Date().toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
   const day = today.getDate();
   const dayName = DAY_NAMES[today.getDay()];
 
