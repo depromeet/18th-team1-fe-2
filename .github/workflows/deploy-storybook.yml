@@ -3,7 +3,7 @@ name: Deploy Storybook
 on:
   push:
     branches:
-      - dev
+      - develop
     paths:
       # Storybook 설정
       - '.storybook/**'
@@ -14,6 +14,11 @@ on:
       # 의존성 변경 시 재빌드
       - 'package.json'
       - 'pnpm-lock.yaml'
+
+# 연속된 push 이벤트가 발생할 때 이전 실행 중인 워크플로를 취소하고 최신 이벤트만 처리
+concurrency:
+  group: 'deploy-storybook'
+  cancel-in-progress: true
 
 jobs:
   # ─────────────────────────────────────────────
