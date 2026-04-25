@@ -12,6 +12,7 @@
 | 상수 (하드코딩 값) | `UPPER_SNAKE_CASE` | `COLOR_WHITE = "#ffffff"` |
 | 환경 변수 | `UPPER_SNAKE_CASE` | `NEXT_PUBLIC_API_BASE_URL` |
 | 파일 (컴포넌트) | `PascalCase.tsx` | `DeleteButton.tsx` |
+| 파일 (`shared/ui/` 컴포넌트) | `kebab-case.tsx` | `button.tsx`, `option-menu.tsx` |
 | 파일 (훅) | `camelCase.ts` (`use` 접두사) | `useOnlineStatus.ts` |
 | 파일 (일반 모듈) | `kebab-case.ts` | `query-client.ts` |
 | 폴더 | `kebab-case` | `book-form`, `user-profile` |
