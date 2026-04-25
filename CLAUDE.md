@@ -11,7 +11,7 @@ pnpm dlx shadcn@latest add <component> # shadcn/ui 컴포넌트 추가
 
 ## 폴더 구조 (FSD)
 
-```
+```text
 src/
 ├── app/        # Next.js 라우팅, Provider
 ├── widgets/    # feature 조합 UI 블록
@@ -46,7 +46,7 @@ src/
 
 새 기능 추가 시 슬라이스 내부 구조:
 
-```
+```text
 features/
 └── book-search/
     ├── index.ts          # public API (외부 노출 인터페이스)
@@ -86,3 +86,4 @@ features/
 | @docs/packages.md | 패키지 목록 및 설정 방법 |
 | @docs/api-specification.md | API 엔드포인트, TanStack Query 가이드 |
 | @docs/ui-markup-guide.md | Figma MCP 활용, 디자인 토큰, 마크업 규칙 |
+| @docs/icon-guide.md | 아이콘 컴포넌트 추가 및 사용 규칙 |
