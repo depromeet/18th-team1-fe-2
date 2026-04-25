@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/shared/lib/utils";
-import { IcBack, IcSetting, IcShare } from "@/shared/ui/icons";
+import { IcBack, IcEdit, IcReport, IcSetting, IcShare, IcTrash } from "@/shared/ui/icons";
 import { OptionMenu } from "@/shared/ui/option-menu";
 
 import { CheckButton } from "./CheckButton";
@@ -63,11 +63,18 @@ export const Header = ({
 
       {variant === "detail" && (
         <OptionMenu
-          variant={optionMenuVariant}
-          onEdit={onEdit}
-          onShare={onShare}
-          onDelete={onDelete}
-          onReport={onReport}
+          items={
+            optionMenuVariant === "default"
+              ? [
+                  { icon: <IcEdit />, label: "수정하기", onClick: onEdit },
+                  { icon: <IcShare />, label: "공유하기", onClick: onShare },
+                  { icon: <IcTrash />, label: "삭제", onClick: onDelete, isDestructive: true },
+                ]
+              : [
+                  { icon: <IcReport />, label: "신고하기", onClick: onReport },
+                  { icon: <IcShare />, label: "공유하기", onClick: onShare },
+                ]
+          }
         />
       )}
 
