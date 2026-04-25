@@ -85,3 +85,4 @@ features/
 | @docs/commit-convention.md | 커밋 태그, Gitmoji 옵션 |
 | @docs/packages.md | 패키지 목록 및 설정 방법 |
 | @docs/api-specification.md | API 엔드포인트, TanStack Query 가이드 |
+| @docs/ui-markup-guide.md | Figma MCP 활용, 디자인 토큰, 마크업 규칙 |
