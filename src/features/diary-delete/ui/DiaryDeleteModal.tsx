@@ -2,6 +2,8 @@
 
 import type { KeyboardEvent, MouseEvent, ReactElement } from "react";
 
+import { ButtonDouble } from "@/shared/ui/button-double";
+
 interface DiaryDeleteModalProps {
   isOpen: boolean;
   onConfirm?: () => void;
@@ -33,22 +35,15 @@ export const DiaryDeleteModal = ({
         </h2>
         <p className="body1 text-center text-gray-600">한번 삭제한 일기는 복원할 수 없어요.</p>
       </div>
-      <div className="flex w-full gap-2.5">
-        <button
-          type="button"
-          className="subhead6 flex h-[2.875rem] flex-1 items-center justify-center rounded-[0.625rem] bg-gray-100 text-gray-300 cursor-pointer"
-          onClick={onCancel}
-        >
-          취소
-        </button>
-        <button
-          type="button"
-          className="subhead6 flex h-[2.875rem] flex-1 items-center justify-center rounded-[0.625rem] bg-gray-700 text-gray-0 cursor-pointer"
-          onClick={onConfirm}
-        >
-          삭제
-        </button>
-      </div>
+      <ButtonDouble
+        width="w-full"
+        height="h-[2.875rem]"
+        gap="gap-2.5"
+        secondaryLabel="취소"
+        primaryLabel="삭제"
+        onSecondaryClick={onCancel}
+        onPrimaryClick={onConfirm}
+      />
     </div>
   );
 };
