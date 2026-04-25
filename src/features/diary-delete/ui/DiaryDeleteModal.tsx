@@ -25,9 +25,9 @@ export const DiaryDeleteModal = ({
       onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => e.stopPropagation()}
     >
       <div className="flex w-full flex-col items-center gap-1.5">
-        <p id="delete-modal-title" className="subhead1 text-center text-gray-700">
+        <h2 id="delete-modal-title" className="subhead1 text-center text-gray-700">
           일기 삭제
-        </p>
+        </h2>
         <p className="body1 text-center text-gray-600">한번 삭제한 일기는 복원할 수 없어요.</p>
       </div>
       <div className="flex w-full gap-2.5">
