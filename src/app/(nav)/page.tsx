@@ -1,21 +1,24 @@
-import { BookOpen } from "lucide-react";
-
-import { Button } from "@/shared/ui/button";
+import { MOCK_DIARIES, MOCK_TODAY_DIARY } from "@/mock";
+import { DiaryListSection, HomeHeader, TodayDiaryCard, TodayEmptyState } from "@/widgets/home";
 
 const HomePage = (): React.ReactElement => {
+  const hasTodayDiary = false; // TODO: API 연동 후 실제 데이터 + 로직으로 교체
+
+  if (hasTodayDiary) {
+    return (
+      <div className="flex flex-1 flex-col overflow-y-auto bg-gray-0 [&::-webkit-scrollbar]:hidden [scrollbar-width:none]">
+        <HomeHeader isWritten className="sticky top-0 z-10 bg-gray-0" />
+        <TodayDiaryCard {...MOCK_TODAY_DIARY} />
+        <DiaryListSection diaries={MOCK_DIARIES} />
+      </div>
+    );
+  }
+
   return (
-    <div className="flex flex-col items-center gap-8 py-10">
-      <div className="flex flex-col items-center gap-4 text-center">
-        <BookOpen className="size-12 text-primary" aria-hidden="true" />
-        <h1 className="text-4xl font-semibold tracking-tight">책 문장 일기</h1>
-        <p className="max-w-md text-base text-muted-foreground">
-          책 속 문장으로 나의 하루를 기록하는 웹 애플리케이션입니다.
-        </p>
-      </div>
-      <div className="flex gap-3">
-        <Button>오늘의 문장 작성하기</Button>
-        <Button variant="outline">문장 모아보기</Button>
-      </div>
+    <div className="flex flex-1 flex-col overflow-hidden bg-gray-0">
+      <HomeHeader />
+      <TodayEmptyState />
+      <DiaryListSection diaries={MOCK_DIARIES} className="min-h-0 flex-1 overflow-y-auto" />
     </div>
   );
 };
