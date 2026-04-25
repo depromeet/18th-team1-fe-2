@@ -33,7 +33,9 @@ const RootLayout = ({ children }: RootLayoutProps): React.ReactElement => {
     <html lang="ko" className={`${pretendard.variable} ${nanumMyeongjo.variable}`}>
       <body className="min-h-dvh bg-background text-foreground antialiased">
         <Providers>
-          <div className="min-h-dvh w-full bg-muted px-5 md:mx-auto md:max-w-93.75">{children}</div>
+          <div className="min-h-dvh w-full bg-gray-50 px-5 md:mx-auto md:max-w-93.75">
+            {children}
+          </div>
         </Providers>
       </body>
     </html>
