@@ -1,5 +1,7 @@
 "use client";
 
+import type { KeyboardEvent, MouseEvent, ReactElement } from "react";
+
 interface DiaryDeleteModalProps {
   isOpen: boolean;
   onConfirm?: () => void;
@@ -10,7 +12,7 @@ export const DiaryDeleteModal = ({
   isOpen,
   onConfirm,
   onCancel,
-}: DiaryDeleteModalProps): React.ReactElement | null => {
+}: DiaryDeleteModalProps): ReactElement | null => {
   if (!isOpen) return null;
 
   return (
@@ -19,8 +21,8 @@ export const DiaryDeleteModal = ({
       aria-modal="true"
       aria-labelledby="delete-modal-title"
       className="flex w-71 flex-col gap-7 rounded-[1.25rem] bg-background px-2.5 pb-2.5 pt-7"
-      onClick={(e: React.MouseEvent<HTMLDivElement>) => e.stopPropagation()}
-      onKeyDown={(e: React.KeyboardEvent<HTMLDivElement>) => e.stopPropagation()}
+      onClick={(e: MouseEvent<HTMLDivElement>) => e.stopPropagation()}
+      onKeyDown={(e: KeyboardEvent<HTMLDivElement>) => e.stopPropagation()}
     >
       <div className="flex w-full flex-col items-center gap-1.5">
         <p id="delete-modal-title" className="subhead1 text-center text-gray-700">
