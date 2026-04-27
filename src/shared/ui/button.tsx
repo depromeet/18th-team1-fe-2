@@ -1,13 +1,14 @@
 "use client";
 
+import type { ReactElement, ReactNode } from "react";
+
 import { cn } from "@/shared/lib/utils";
 
 interface ButtonProps {
   label?: string;
-  icon?: React.ReactNode;
+  icon?: ReactNode;
   isDisabled?: boolean;
-  width?: string;
-  height?: string;
+  className?: string;
   onClick?: () => void;
 }
 
@@ -15,16 +16,14 @@ export const Button = ({
   label,
   icon,
   isDisabled = false,
-  width = "w-[335px]",
-  height = "h-14",
+  className,
   onClick,
-}: ButtonProps): React.ReactElement => (
+}: ButtonProps): ReactElement => (
   <button
     type="button"
     className={cn(
-      "subhead6 flex items-center justify-center gap-[7px] rounded-2xl bg-gray-700 capitalize text-gray-0 disabled:bg-gray-100 disabled:text-gray-300",
-      width,
-      height,
+      "subhead6 flex w-full h-14 items-center justify-center gap-[7px] rounded-2xl bg-gray-700 capitalize text-gray-0 disabled:bg-gray-100 disabled:text-gray-300",
+      className,
     )}
     disabled={isDisabled}
     onClick={onClick}
