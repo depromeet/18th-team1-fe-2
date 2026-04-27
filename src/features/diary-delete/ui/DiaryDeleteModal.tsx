@@ -2,7 +2,7 @@
 
 import type { KeyboardEvent, MouseEvent, ReactElement } from "react";
 
-import { ButtonDouble } from "@/shared/ui/button-double";
+import { DoubleButton } from "@/shared/ui/double-button";
 
 interface DiaryDeleteModalProps {
   isOpen: boolean;
@@ -35,10 +35,8 @@ export const DiaryDeleteModal = ({
         </h2>
         <p className="body1 text-center text-gray-600">한번 삭제한 일기는 복원할 수 없어요.</p>
       </div>
-      <ButtonDouble
-        width="w-full"
-        height="h-[2.875rem]"
-        gap="gap-2.5"
+      <DoubleButton
+        className="h-11.5 gap-2.5"
         secondaryLabel="취소"
         primaryLabel="삭제"
         onSecondaryClick={onCancel}
