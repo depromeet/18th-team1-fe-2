@@ -1,8 +1,17 @@
+"use client";
+
+import { useRouter } from "next/navigation";
+
 import { MOCK_DIARIES, MOCK_TODAY_DIARY } from "@/mock";
 import { DiaryListSection, HomeHeader, TodayDiaryCard, TodayEmptyState } from "@/widgets/home";
 
 const HomePage = (): React.ReactElement => {
+  const router = useRouter();
   const hasTodayDiary = false; // TODO: API 연동 후 실제 데이터 + 로직으로 교체
+
+  const handleWrite = (): void => {
+    router.push("/diary/emotion");
+  };
 
   if (hasTodayDiary) {
     return (
@@ -17,7 +26,7 @@ const HomePage = (): React.ReactElement => {
   return (
     <div className="flex flex-1 flex-col overflow-hidden bg-gray-0">
       <HomeHeader />
-      <TodayEmptyState />
+      <TodayEmptyState onWrite={handleWrite} />
       <DiaryListSection diaries={MOCK_DIARIES} className="min-h-0 flex-1 overflow-y-auto" />
     </div>
   );
