@@ -4,7 +4,6 @@ import type { Meta, StoryObj } from "@storybook/nextjs";
 import { BookOpen, Edit, Settings, Star, Trash2, User } from "lucide-react";
 import { useState } from "react";
 
-import { Button } from "./button";
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -36,9 +35,7 @@ type Story = StoryObj;
 export const Basic: Story = {
   render: () => (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">메뉴 열기</Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger>메뉴 열기</DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
         <DropdownMenuLabel>내 계정</DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -63,9 +60,7 @@ export const Basic: Story = {
 export const WithShortcuts: Story = {
   render: () => (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">단축키 메뉴</Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger>단축키 메뉴</DropdownMenuTrigger>
       <DropdownMenuContent className="w-52">
         <DropdownMenuItem>
           <Edit />
@@ -95,9 +90,7 @@ export const WithCheckboxItems: Story = {
 
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">보기 설정</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger>보기 설정</DropdownMenuTrigger>
         <DropdownMenuContent className="w-48">
           <DropdownMenuLabel>표시 옵션</DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -119,9 +112,7 @@ export const WithRadioItems: Story = {
 
     return (
       <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="outline">정렬 기준</Button>
-        </DropdownMenuTrigger>
+        <DropdownMenuTrigger>정렬 기준</DropdownMenuTrigger>
         <DropdownMenuContent className="w-44">
           <DropdownMenuLabel>정렬</DropdownMenuLabel>
           <DropdownMenuSeparator />
@@ -139,9 +130,7 @@ export const WithRadioItems: Story = {
 export const WithSubMenu: Story = {
   render: () => (
     <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="outline">서브 메뉴</Button>
-      </DropdownMenuTrigger>
+      <DropdownMenuTrigger>서브 메뉴</DropdownMenuTrigger>
       <DropdownMenuContent className="w-48">
         <DropdownMenuGroup>
           <DropdownMenuItem>
