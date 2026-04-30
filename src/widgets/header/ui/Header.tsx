@@ -22,7 +22,12 @@ export const Header = ({ title, onBack, right, className }: HeaderProps): React.
     });
 
   return (
-    <header className={cn("relative flex h-15 w-full items-center justify-between", className)}>
+    <header
+      className={cn(
+        "relative flex h-15 w-full items-center justify-between px-5 py-3.5",
+        className,
+      )}
+    >
       <button type="button" onClick={handleBack} className="text-gray-700" aria-label="뒤로가기">
         <IcBack size={24} />
       </button>
