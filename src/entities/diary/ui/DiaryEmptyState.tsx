@@ -27,9 +27,11 @@ export const DiaryEmptyState = ({ className }: DiaryEmptyStateProps): React.Reac
         <p className="title1 text-gray-200">무엇일까요?</p>
       </div>
       <hr className="mb-3.75 mt-7 border-border" />
-      <Button className="h-14 w-full rounded-xl subhead5" onClick={handleWrite}>
-        + 오늘의 일기 작성하기
-      </Button>
+      <Button
+        label="+ 오늘의 일기 작성하기"
+        className="rounded-xl subhead5"
+        onClick={handleWrite}
+      />
     </section>
   );
 };
