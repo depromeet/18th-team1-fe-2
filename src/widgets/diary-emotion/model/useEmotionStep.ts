@@ -8,6 +8,8 @@ const TOTAL_STEPS = 3;
 interface UseEmotionStepReturn {
   currentStep: number;
   totalSteps: number;
+  selectedSituationIds: string[];
+  selectedSentenceTypeId: string | null;
   isLoading: boolean;
   isNextDisabled: boolean;
   handleBack: () => void;
@@ -19,7 +21,8 @@ interface UseEmotionStepReturn {
 export const useEmotionStep = (): UseEmotionStepReturn => {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const currentStep = Number(searchParams.get("step") ?? "1");
+  const rawStep = Number(searchParams.get("step"));
+  const currentStep = Number.isNaN(rawStep) || rawStep < 1 || rawStep > TOTAL_STEPS ? 1 : rawStep;
 
   const [selectedSituationIds, setSelectedSituationIds] = useState<string[]>([]);
   const [selectedSentenceTypeId, setSelectedSentenceTypeId] = useState<string | null>(null);
@@ -54,6 +57,8 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
   return {
     currentStep,
     totalSteps: TOTAL_STEPS,
+    selectedSituationIds,
+    selectedSentenceTypeId,
     isLoading,
     isNextDisabled,
     handleBack,

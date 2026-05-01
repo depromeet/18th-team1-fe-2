@@ -13,6 +13,8 @@ export const EmotionStepView = (): React.ReactElement => {
   const {
     currentStep,
     totalSteps,
+    selectedSituationIds,
+    selectedSentenceTypeId,
     isLoading,
     isNextDisabled,
     handleBack,
@@ -29,8 +31,18 @@ export const EmotionStepView = (): React.ReactElement => {
       <StepProgressBar currentStep={currentStep} totalSteps={totalSteps} />
       <div className="flex-1 px-5 pt-2">
         {currentStep === 1 && <TemperatureStep />}
-        {currentStep === 2 && <SituationStep onSelectionChange={handleSituationChange} />}
-        {currentStep === 3 && <SentenceTypeStep onSelectionChange={handleSentenceTypeChange} />}
+        {currentStep === 2 && (
+          <SituationStep
+            selectedIds={selectedSituationIds}
+            onSelectionChange={handleSituationChange}
+          />
+        )}
+        {currentStep === 3 && (
+          <SentenceTypeStep
+            selectedId={selectedSentenceTypeId}
+            onSelectionChange={handleSentenceTypeChange}
+          />
+        )}
       </div>
       <div className="px-5 pb-8 pt-4">
         <button

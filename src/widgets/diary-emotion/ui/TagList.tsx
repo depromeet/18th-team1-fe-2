@@ -1,7 +1,3 @@
-"use client";
-
-import { useState } from "react";
-
 import { TagChip } from "./TagChip";
 
 interface TagItem {
@@ -11,24 +7,23 @@ interface TagItem {
 
 interface TagListProps {
   items: TagItem[];
+  selectedIds: string[];
   multiSelect?: boolean;
   onSelectionChange: (ids: string[]) => void;
 }
 
 export const TagList = ({
   items,
+  selectedIds,
   multiSelect = false,
   onSelectionChange,
 }: TagListProps): React.ReactElement => {
-  const [selectedIds, setSelectedIds] = useState<string[]>([]);
-
   const handleSelect = (id: string): void => {
     const next = multiSelect
       ? selectedIds.includes(id)
         ? selectedIds.filter((s) => s !== id)
         : [...selectedIds, id]
       : [id];
-    setSelectedIds(next);
     onSelectionChange(next);
   };
 
