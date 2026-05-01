@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 
-import { EmotionStepView } from "@/widgets/diary-emotion";
+import { EmotionStepView } from "@/features/diary-emotion";
 
 const EmotionPage = (): React.ReactElement => (
   <Suspense>

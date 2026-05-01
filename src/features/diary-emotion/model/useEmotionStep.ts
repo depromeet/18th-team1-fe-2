@@ -43,7 +43,7 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
       return;
     }
     setIsLoading(true);
-    // TODO: API 호출 후 router.push("/diary/sentence")
+    // TODO: API 호출 후 router.push("/diary/sentence/{id}")
   };
 
   const handleSituationChange = (ids: string[]): void => {
