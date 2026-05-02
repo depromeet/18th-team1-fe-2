@@ -1,4 +1,5 @@
 import type { Diary, TodayDiary } from "@/entities/diary";
+import type { RecommendedSentence } from "@/entities/sentence";
 
 export const MOCK_TODAY_DIARY: TodayDiary = {
   temperature: 72,
@@ -69,4 +70,70 @@ export const MOCK_SENTENCE_TYPES = [
   { id: "1", label: "위로가 되는 문장" },
   { id: "2", label: "공감해주는 문장" },
   { id: "3", label: "영감을 주는 문장" },
+];
+
+export const MOCK_SENTENCES: RecommendedSentence[] = [
+  {
+    id: "1",
+    quote: "세상에는 두 종류의 고통이 있다. 너를 아프게 하는 고통과 너를 변하게 하는 고통",
+    bookTitle: "나미야 잡화점",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "2",
+    quote: "우리는 모두 누군가의 이야기 속에 살고 있다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "3",
+    quote: "사랑은 이해가 아니라 받아들임이다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "4",
+    quote: "모든 끝은 새로운 시작의 다른 이름이다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "5",
+    quote: "빛이 있는 곳에 반드시 그림자가 있다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "6",
+    quote: "우리는 이야기로 살아간다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "7",
+    quote: "기억은 우리를 살게 한다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "8",
+    quote: "고요함 속에서 진실이 보인다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
+  {
+    id: "9",
+    quote: "변화는 두려움이 아닌 용기에서 온다.",
+    bookTitle: "용의자 X의 헌신",
+    bookAuthor: "히가시노 게이고",
+    date: "4월 19일 목요일",
+  },
 ];
