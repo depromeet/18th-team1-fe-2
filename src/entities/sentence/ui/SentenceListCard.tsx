@@ -15,6 +15,7 @@ export const SentenceListCard = ({
 }: SentenceListCardProps): React.ReactElement => (
   <button
     type="button"
+    aria-pressed={isSelected}
     onClick={onClick}
     className={cn(
       "flex w-full flex-col items-start rounded-xl bg-white p-5 text-left border",
