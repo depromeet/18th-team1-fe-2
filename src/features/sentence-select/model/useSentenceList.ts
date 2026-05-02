@@ -19,7 +19,9 @@ export const useSentenceList = (
   initialSentenceId: string,
   allSentences: RecommendedSentence[],
 ): UseSentenceListReturn => {
-  const [visibleCount, setVisibleCount] = useState(BATCH_SIZE);
+  const initialIndex = allSentences.findIndex((s) => s.id === initialSentenceId);
+  const initialVisibleCount = Math.max(BATCH_SIZE, initialIndex + 1);
+  const [visibleCount, setVisibleCount] = useState(initialVisibleCount);
   const [selectedId, setSelectedId] = useState(initialSentenceId);
 
   const visibleSentences = allSentences.slice(0, visibleCount);
