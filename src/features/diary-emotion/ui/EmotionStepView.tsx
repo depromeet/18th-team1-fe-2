@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 
+import { useViewportHeight } from "@/shared/hooks/useViewportHeight";
 import { Button } from "@/shared/ui/button";
 import { DoubleButton } from "@/shared/ui/double-button";
 import { Header } from "@/widgets/header";
@@ -15,6 +16,7 @@ import { StepProgressBar } from "./StepProgressBar";
 import { TemperatureStep } from "./TemperatureStep";
 
 export const EmotionStepView = (): React.ReactElement => {
+  useViewportHeight();
   const { currentStep, totalSteps, isLoading, handleBack, handleNext, handleSkip } =
     useEmotionStep();
   const [isNextDisabled, setIsNextDisabled] = useState(currentStep !== 1);
@@ -26,10 +28,13 @@ export const EmotionStepView = (): React.ReactElement => {
   if (isLoading) return <LoadingView />;
 
   return (
-    <div className="flex h-full flex-col gap-1 bg-muted">
+    <div
+      className="fixed inset-x-0 top-0 flex flex-col gap-1 bg-muted md:left-1/2 md:right-auto md:w-93.75 md:-translate-x-1/2"
+      style={{ height: "var(--vh, 100dvh)" }}
+    >
       <Header onBack={handleBack} />
       <StepProgressBar currentStep={currentStep} totalSteps={totalSteps} />
-      <div className="flex-1 px-5">
+      <div className="min-h-0 flex-1 overflow-y-auto px-5">
         {currentStep === 1 && <TemperatureStep />}
         {currentStep === 2 && <SituationStep onValidChange={setIsNextDisabled} />}
         {currentStep === 3 && <SituationDescriptionStep onValidChange={setIsNextDisabled} />}
