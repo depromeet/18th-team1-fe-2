@@ -1,10 +1,18 @@
 import { SentenceDetailView } from "@/features/sentence-select";
-import { MOCK_SENTENCE } from "@/mock";
+import { MOCK_SENTENCES } from "@/mock";
 
-const SentenceDetailPage = (): React.ReactElement | null => {
-  if (!MOCK_SENTENCE) return null;
+interface SentenceDetailPageProps {
+  params: Promise<{ id: string }>;
+}
 
-  return <SentenceDetailView sentence={MOCK_SENTENCE} />;
+const SentenceDetailPage = async ({
+  params,
+}: SentenceDetailPageProps): Promise<React.ReactElement | null> => {
+  const { id } = await params;
+  const sentence = MOCK_SENTENCES.find((s) => s.id === id);
+  if (!sentence) return null;
+
+  return <SentenceDetailView sentence={sentence} />;
 };
 
 export default SentenceDetailPage;
