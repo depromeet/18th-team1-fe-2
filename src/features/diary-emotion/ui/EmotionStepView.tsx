@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import { Button } from "@/shared/ui/button";
 import { DoubleButton } from "@/shared/ui/double-button";
 import { Header } from "@/widgets/header";
@@ -13,21 +15,9 @@ import { StepProgressBar } from "./StepProgressBar";
 import { TemperatureStep } from "./TemperatureStep";
 
 export const EmotionStepView = (): React.ReactElement => {
-  const {
-    currentStep,
-    totalSteps,
-    selectedSituationIds,
-    situationDescription,
-    selectedSentenceTypeId,
-    isLoading,
-    isNextDisabled,
-    handleBack,
-    handleNext,
-    handleSkip,
-    handleSituationChange,
-    handleSituationDescriptionChange,
-    handleSentenceTypeChange,
-  } = useEmotionStep();
+  const { currentStep, totalSteps, isLoading, handleBack, handleNext, handleSkip } =
+    useEmotionStep();
+  const [isNextDisabled, setIsNextDisabled] = useState(currentStep !== 1);
 
   if (isLoading) return <LoadingView />;
 
@@ -37,25 +27,9 @@ export const EmotionStepView = (): React.ReactElement => {
       <StepProgressBar currentStep={currentStep} totalSteps={totalSteps} />
       <div className="flex-1 px-5">
         {currentStep === 1 && <TemperatureStep />}
-        {currentStep === 2 && (
-          <SituationStep
-            selectedIds={selectedSituationIds}
-            onSelectionChange={handleSituationChange}
-          />
-        )}
-        {currentStep === 3 && (
-          <SituationDescriptionStep
-            selectedSituationIds={selectedSituationIds}
-            description={situationDescription}
-            onDescriptionChange={handleSituationDescriptionChange}
-          />
-        )}
-        {currentStep === 4 && (
-          <SentenceTypeStep
-            selectedId={selectedSentenceTypeId}
-            onSelectionChange={handleSentenceTypeChange}
-          />
-        )}
+        {currentStep === 2 && <SituationStep onValidChange={setIsNextDisabled} />}
+        {currentStep === 3 && <SituationDescriptionStep onValidChange={setIsNextDisabled} />}
+        {currentStep === 4 && <SentenceTypeStep onValidChange={setIsNextDisabled} />}
       </div>
       <div className="px-5 pb-8 pt-4">
         {currentStep === 3 ? (

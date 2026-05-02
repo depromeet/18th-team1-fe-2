@@ -10,17 +10,10 @@ const TOTAL_STEPS = 4;
 interface UseEmotionStepReturn {
   currentStep: number;
   totalSteps: number;
-  selectedSituationIds: string[];
-  situationDescription: string;
-  selectedSentenceTypeId: string | null;
   isLoading: boolean;
-  isNextDisabled: boolean;
   handleBack: () => void;
   handleNext: () => void;
   handleSkip: () => void;
-  handleSituationChange: (ids: string[]) => void;
-  handleSituationDescriptionChange: (text: string) => void;
-  handleSentenceTypeChange: (ids: string[]) => void;
 }
 
 export const useEmotionStep = (): UseEmotionStepReturn => {
@@ -29,33 +22,13 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
   const rawStep = Number(searchParams.get("step"));
   const currentStep = Number.isNaN(rawStep) || rawStep < 1 || rawStep > TOTAL_STEPS ? 1 : rawStep;
 
-  const {
-    selectedSituationIds,
-    situationDescription,
-    selectedSentenceTypeId,
-    setSelectedSituationIds,
-    setSituationDescription,
-    setSelectedSentenceTypeId,
-    reset,
-  } = useDiaryEmotionStore();
+  const { reset } = useDiaryEmotionStore();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  useEffect(() => {
-    return () => {
-      reset();
-    };
-  }, [reset]);
-
-  const isNextDisabled =
-    (currentStep === 2 && selectedSituationIds.length === 0) ||
-    (currentStep === 3 && situationDescription.trim() === "") ||
-    (currentStep === 4 && selectedSentenceTypeId === null);
+  useEffect((): (() => void) => (): void => reset(), [reset]);
 
   const handleBack = (): void => {
-    if (currentStep === 1) {
-      reset();
-    }
     router.back();
   };
 
@@ -65,7 +38,7 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
       return;
     }
     setIsLoading(true);
-    // TODO: API 호출 { selectedSituationIds, situationDescription, selectedSentenceTypeId }
+    // TODO: API 호출
     // .then(() => { reset(); router.push("/diary/sentence/{id}"); })
   };
 
@@ -73,26 +46,12 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
     router.push(`/diary/emotion?step=${TOTAL_STEPS}`);
   };
 
-  const handleSituationChange = (ids: string[]): void => setSelectedSituationIds(ids);
-
-  const handleSituationDescriptionChange = (text: string): void => setSituationDescription(text);
-
-  const handleSentenceTypeChange = (ids: string[]): void =>
-    setSelectedSentenceTypeId(ids[0] ?? null);
-
   return {
     currentStep,
     totalSteps: TOTAL_STEPS,
-    selectedSituationIds,
-    situationDescription,
-    selectedSentenceTypeId,
     isLoading,
-    isNextDisabled,
     handleBack,
     handleNext,
     handleSkip,
-    handleSituationChange,
-    handleSituationDescriptionChange,
-    handleSentenceTypeChange,
   };
 };
