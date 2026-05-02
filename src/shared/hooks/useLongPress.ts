@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 
 interface UseLongPressOptions {
   threshold?: number;
@@ -22,6 +22,7 @@ export const useLongPress = (
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const start = useCallback(() => {
+    if (timerRef.current) clearTimeout(timerRef.current);
     timerRef.current = setTimeout(callback, threshold);
   }, [callback, threshold]);
 
@@ -31,6 +32,8 @@ export const useLongPress = (
       timerRef.current = null;
     }
   }, []);
+
+  useEffect(() => cancel, [cancel]);
 
   return {
     onMouseDown: start,
