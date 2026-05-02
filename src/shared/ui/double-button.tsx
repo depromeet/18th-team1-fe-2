@@ -32,7 +32,7 @@ export const DoubleButton = ({
     <button
       type="button"
       disabled={isPrimaryDisabled}
-      className="subhead6 flex h-full flex-1 items-center justify-center rounded-2xl bg-gray-700 text-gray-0 disabled:bg-gray-100 disabled:text-gray-300"
+      className="subhead6 flex h-full flex-1 items-center justify-center rounded-2xl bg-gray-700 text-gray-0 disabled:cursor-not-allowed disabled:bg-gray-100 disabled:text-gray-300"
       onClick={onPrimaryClick}
     >
       {primaryLabel}
