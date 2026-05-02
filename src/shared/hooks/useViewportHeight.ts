@@ -1,0 +1,72 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+
+const POLL_INTERVAL_MS = 100;
+const POLL_COUNT = 20;
+
+export const useViewportHeight = (): void => {
+  const focusIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    const vp = window.visualViewport ?? null;
+
+    const updateVH = (): void => {
+      const h = vp ? vp.height : window.innerHeight;
+      document.documentElement.style.setProperty("--vh", `${h}px`);
+    };
+
+    const preventTouchMove = (e: TouchEvent): void => {
+      const target = e.target as HTMLElement;
+      if (target.closest("textarea")) return;
+      e.preventDefault();
+    };
+
+    const resetScroll = (): void => {
+      if (window.scrollY !== 0) window.scrollTo(0, 0);
+    };
+
+    const onFocusIn = (): void => {
+      if (focusIntervalRef.current) clearInterval(focusIntervalRef.current);
+      let count = 0;
+      focusIntervalRef.current = setInterval(() => {
+        updateVH();
+        count++;
+        if (count >= POLL_COUNT) {
+          if (focusIntervalRef.current) clearInterval(focusIntervalRef.current);
+          focusIntervalRef.current = null;
+        }
+      }, POLL_INTERVAL_MS);
+    };
+
+    const onFocusOut = (): void => {
+      if (focusIntervalRef.current) {
+        clearInterval(focusIntervalRef.current);
+        focusIntervalRef.current = null;
+      }
+      setTimeout(updateVH, 100);
+      setTimeout(updateVH, 300);
+    };
+
+    updateVH();
+
+    vp?.addEventListener("resize", updateVH);
+    vp?.addEventListener("scroll", updateVH);
+    window.addEventListener("resize", updateVH);
+    window.addEventListener("scroll", resetScroll);
+    document.addEventListener("touchmove", preventTouchMove, { passive: false });
+    document.addEventListener("focusin", onFocusIn);
+    document.addEventListener("focusout", onFocusOut);
+
+    return () => {
+      if (focusIntervalRef.current) clearInterval(focusIntervalRef.current);
+      vp?.removeEventListener("resize", updateVH);
+      vp?.removeEventListener("scroll", updateVH);
+      window.removeEventListener("resize", updateVH);
+      window.removeEventListener("scroll", resetScroll);
+      document.removeEventListener("touchmove", preventTouchMove);
+      document.removeEventListener("focusin", onFocusIn);
+      document.removeEventListener("focusout", onFocusOut);
+    };
+  }, []);
+};
