@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Button } from "@/shared/ui/button";
 import { DoubleButton } from "@/shared/ui/double-button";
@@ -18,6 +18,10 @@ export const EmotionStepView = (): React.ReactElement => {
   const { currentStep, totalSteps, isLoading, handleBack, handleNext, handleSkip } =
     useEmotionStep();
   const [isNextDisabled, setIsNextDisabled] = useState(currentStep !== 1);
+
+  useEffect(() => {
+    if (currentStep === 1) setIsNextDisabled(false);
+  }, [currentStep]);
 
   if (isLoading) return <LoadingView />;
 
