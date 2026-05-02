@@ -7,6 +7,7 @@ import { cn } from "@/shared/lib/utils";
 interface DoubleButtonProps {
   primaryLabel?: string;
   secondaryLabel?: string;
+  isPrimaryDisabled?: boolean;
   className?: string;
   onPrimaryClick?: () => void;
   onSecondaryClick?: () => void;
@@ -15,6 +16,7 @@ interface DoubleButtonProps {
 export const DoubleButton = ({
   primaryLabel,
   secondaryLabel,
+  isPrimaryDisabled = false,
   className,
   onPrimaryClick,
   onSecondaryClick,
@@ -29,7 +31,8 @@ export const DoubleButton = ({
     </button>
     <button
       type="button"
-      className="subhead6 flex h-full flex-1 items-center justify-center rounded-2xl bg-gray-700 text-gray-0"
+      disabled={isPrimaryDisabled}
+      className="subhead6 flex h-full flex-1 items-center justify-center rounded-2xl bg-gray-700 text-gray-0 disabled:bg-gray-100 disabled:text-gray-300"
       onClick={onPrimaryClick}
     >
       {primaryLabel}

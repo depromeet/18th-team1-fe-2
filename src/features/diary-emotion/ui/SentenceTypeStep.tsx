@@ -11,7 +11,7 @@ export const SentenceTypeStep = ({
   selectedId,
   onSelectionChange,
 }: SentenceTypeStepProps): React.ReactElement => (
-  <div className="flex flex-col gap-4">
+  <div className="flex flex-col gap-4 pt-1">
     <div className="h-14 w-full rounded-xl bg-gray-100" />
     <p className="body1 pt-2.5 text-foreground">오늘 어떤 문장이 필요하세요?</p>
     <TagList

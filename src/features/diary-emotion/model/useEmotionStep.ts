@@ -1,20 +1,25 @@
 "use client";
 
 import { useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-const TOTAL_STEPS = 3;
+import { useDiaryEmotionStore } from "./useDiaryEmotionStore";
+
+const TOTAL_STEPS = 4;
 
 interface UseEmotionStepReturn {
   currentStep: number;
   totalSteps: number;
   selectedSituationIds: string[];
+  situationDescription: string;
   selectedSentenceTypeId: string | null;
   isLoading: boolean;
   isNextDisabled: boolean;
   handleBack: () => void;
   handleNext: () => void;
+  handleSkip: () => void;
   handleSituationChange: (ids: string[]) => void;
+  handleSituationDescriptionChange: (text: string) => void;
   handleSentenceTypeChange: (ids: string[]) => void;
 }
 
@@ -24,17 +29,34 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
   const rawStep = Number(searchParams.get("step"));
   const currentStep = Number.isNaN(rawStep) || rawStep < 1 || rawStep > TOTAL_STEPS ? 1 : rawStep;
 
-  const [selectedSituationIds, setSelectedSituationIds] = useState<string[]>([]);
-  const [selectedSentenceTypeId, setSelectedSentenceTypeId] = useState<string | null>(null);
+  const {
+    selectedSituationIds,
+    situationDescription,
+    selectedSentenceTypeId,
+    setSelectedSituationIds,
+    setSituationDescription,
+    setSelectedSentenceTypeId,
+    reset,
+  } = useDiaryEmotionStore();
+
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    return () => {
+      reset();
+    };
+  }, [reset]);
 
   const isNextDisabled =
     (currentStep === 2 && selectedSituationIds.length === 0) ||
-    (currentStep === 3 && selectedSentenceTypeId === null);
+    (currentStep === 3 && situationDescription.trim() === "") ||
+    (currentStep === 4 && selectedSentenceTypeId === null);
 
   const handleBack = (): void => {
-    if (currentStep === 1) router.back();
-    else router.push(`/diary/emotion?step=${currentStep - 1}`);
+    if (currentStep === 1) {
+      reset();
+    }
+    router.back();
   };
 
   const handleNext = (): void => {
@@ -43,27 +65,34 @@ export const useEmotionStep = (): UseEmotionStepReturn => {
       return;
     }
     setIsLoading(true);
-    // TODO: API 호출 후 router.push("/diary/sentence/{id}")
+    // TODO: API 호출 { selectedSituationIds, situationDescription, selectedSentenceTypeId }
+    // .then(() => { reset(); router.push("/diary/sentence/{id}"); })
   };
 
-  const handleSituationChange = (ids: string[]): void => {
-    setSelectedSituationIds(ids);
+  const handleSkip = (): void => {
+    router.push(`/diary/emotion?step=${TOTAL_STEPS}`);
   };
 
-  const handleSentenceTypeChange = (ids: string[]): void => {
+  const handleSituationChange = (ids: string[]): void => setSelectedSituationIds(ids);
+
+  const handleSituationDescriptionChange = (text: string): void => setSituationDescription(text);
+
+  const handleSentenceTypeChange = (ids: string[]): void =>
     setSelectedSentenceTypeId(ids[0] ?? null);
-  };
 
   return {
     currentStep,
     totalSteps: TOTAL_STEPS,
     selectedSituationIds,
+    situationDescription,
     selectedSentenceTypeId,
     isLoading,
     isNextDisabled,
     handleBack,
     handleNext,
+    handleSkip,
     handleSituationChange,
+    handleSituationDescriptionChange,
     handleSentenceTypeChange,
   };
 };
