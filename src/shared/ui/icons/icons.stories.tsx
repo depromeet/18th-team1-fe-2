@@ -4,7 +4,9 @@ import { IcBack } from "./IcBack";
 import { IcCalendar } from "./IcCalendar";
 import { IcCheck } from "./IcCheck";
 import { IcEdit } from "./IcEdit";
+import { IcGoogle } from "./IcGoogle";
 import { IcHome } from "./IcHome";
+import { IcKakao } from "./IcKakao";
 import { IcOption } from "./IcOption";
 import { IcReport } from "./IcReport";
 import { IcSetting } from "./IcSetting";
@@ -152,5 +154,17 @@ export const IcShareStory: Story = {
 export const IcTrashStory: Story = {
   name: "IcTrash",
   render: (args: IconProps) => <IcTrash {...args} className="text-foreground" />,
+  args: { size: 24 },
+};
+
+export const IcKakaoStory: Story = {
+  name: "IcKakao",
+  render: (args: IconProps) => <IcKakao {...args} className="text-foreground" />,
+  args: { size: 24 },
+};
+
+export const IcGoogleStory: Story = {
+  name: "IcGoogle",
+  render: (args: IconProps) => <IcGoogle {...args} className="text-foreground" />,
   args: { size: 24 },
 };
