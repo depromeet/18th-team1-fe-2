@@ -45,3 +45,8 @@ export const MOCK_DIARIES: Diary[] = [
   { day: 2, sentence: "봄은 기억하지 못하는 사이에 온다", temperature: 74, dotColor: "#30d158" },
   { day: 1, sentence: "모든 사람은 자신만의 속도가 있다", temperature: 70, dotColor: "#34c759" },
 ];
+
+export const MOCK_USER_PROFILE = {
+  nickname: "연결한 계정의 이름",
+  profileImageUrl: "",
+};

@@ -27,6 +27,10 @@
   --color-accent: #f7f7f7;
   --color-accent-foreground: #090909;
 
+  /* Calendar Colors */
+  --color-calendar-sun: #ec5852;
+  --color-calendar-sat: #2e7df6;
+
   /* Fonts */
   --font-sans: var(--font-pretendard);
   --font-serif: var(--font-nanum-myeongjo);
