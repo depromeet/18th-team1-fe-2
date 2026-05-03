@@ -48,6 +48,10 @@ jobs:
             type=sha,prefix=sha-,format=short
             type=raw,value=latest
 
+      # 빌드 타임 환경변수 주입 (.env 생성)
+      - name: Create .env
+        run: echo "NEXT_PUBLIC_API_BASE_URL=${{ secrets.NEXT_PUBLIC_API_BASE_URL }}" > .env
+
       # Dockerfile 기반으로 이미지 빌드 후 GHCR에 푸시
       - name: Build and push Docker image
         uses: docker/build-push-action@v6
