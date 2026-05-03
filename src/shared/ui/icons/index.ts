@@ -1,8 +1,11 @@
 export { BaseIcon } from "./BaseIcon";
 export { IcBack } from "./IcBack";
+export { IcCalBack } from "./IcCalBack";
 export { IcCalendar } from "./IcCalendar";
+export { IcCalNext } from "./IcCalNext";
 export { IcCheck } from "./IcCheck";
 export { IcEdit } from "./IcEdit";
+export { IcFilter } from "./IcFilter";
 export { IcHome } from "./IcHome";
 export { IcOption } from "./IcOption";
 export { IcPlus } from "./IcPlus";
