@@ -9,6 +9,7 @@ import { useAuthStore } from "@/store/auth/useAuthStore";
 const LoginCallbackPage = (): React.ReactElement => {
   const router = useRouter();
   const setAuth = useAuthStore((state) => state.setAuth);
+  const clearAuth = useAuthStore((state) => state.clearAuth);
 
   useEffect(() => {
     refreshAccessToken()
@@ -17,9 +18,10 @@ const LoginCallbackPage = (): React.ReactElement => {
         router.replace("/");
       })
       .catch(() => {
+        clearAuth();
         router.replace("/login");
       });
-  }, [router, setAuth]);
+  }, [router, setAuth, clearAuth]);
 
   return (
     <div className="flex min-h-dvh items-center justify-center">
