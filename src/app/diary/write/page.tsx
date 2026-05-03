@@ -7,7 +7,7 @@ const DiaryWritePage = async ({
   searchParams: Promise<{ sentenceId?: string }>;
 }): Promise<React.ReactElement | null> => {
   const { sentenceId } = await searchParams;
-  const sentence = MOCK_SENTENCES.find((s) => s.id === sentenceId) ?? MOCK_SENTENCES[0];
+  const sentence = MOCK_SENTENCES.find((s) => s.id === sentenceId);
 
   if (!sentence) return null;
 
