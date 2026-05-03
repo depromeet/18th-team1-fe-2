@@ -1,5 +1,6 @@
 "use client";
 
+// 모바일 키보드 팝업으로 변하는 실제 뷰포트 높이를 --vh CSS 변수에 동기화한다. 키보드 포커스 진입/해제 시 폴링으로 높이를 갱신하며, 배경 스크롤도 방지한다.
 import { useEffect, useRef } from "react";
 
 const POLL_INTERVAL_MS = 100;
