@@ -137,3 +137,6 @@ export const MOCK_SENTENCES: RecommendedSentence[] = [
     date: "4월 19일 목요일",
   },
 ];
+
+export const MOCK_SENTENCE: RecommendedSentence | undefined = MOCK_SENTENCES[0];
+

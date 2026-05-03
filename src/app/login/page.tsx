@@ -1,9 +1,7 @@
+import { LoginView } from "@/features/auth";
+
 const LoginPage = (): React.ReactElement => {
-  return (
-    <div className="flex min-h-dvh items-center justify-center">
-      <p className="text-muted-foreground">로그인 (준비 중)</p>
-    </div>
-  );
+  return <LoginView />;
 };
 
 export default LoginPage;
