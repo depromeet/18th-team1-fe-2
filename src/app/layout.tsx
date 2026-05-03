@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Nanum_Myeongjo } from "next/font/google";
 import localFont from "next/font/local";
 import type { ReactNode } from "react";
@@ -22,6 +22,11 @@ const nanumMyeongjo = Nanum_Myeongjo({
 export const metadata: Metadata = {
   title: "책 문장 일기",
   description: "책 속 문장으로 나의 하루를 기록하는 웹 애플리케이션",
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 type RootLayoutProps = {
