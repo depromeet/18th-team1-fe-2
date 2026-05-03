@@ -6,11 +6,22 @@ import { useRef, useState } from "react";
 import { useClickOutside } from "@/shared/hooks/useClickOutside";
 import { IcCameraAdd, IcTrash } from "@/shared/ui/icons";
 
-import { usePhotoSelect } from "../model/usePhotoSelect";
+interface PhotoBarProps {
+  photoUrl: string | null;
+  inputRef: React.RefObject<HTMLInputElement | null>;
+  onAdd: () => void;
+  onDelete: () => void;
+  onFileChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+}
 
-export const PhotoBar = (): React.ReactElement => {
+export const PhotoBar = ({
+  photoUrl,
+  inputRef,
+  onAdd,
+  onDelete,
+  onFileChange,
+}: PhotoBarProps): React.ReactElement => {
   const [isDeletePopupOpen, setIsDeletePopupOpen] = useState(false);
-  const { photoUrl, inputRef, handleClick, handleDelete, handleFileChange } = usePhotoSelect();
   const popupRef = useRef<HTMLDivElement>(null);
 
   useClickOutside(popupRef, () => setIsDeletePopupOpen(false), isDeletePopupOpen);
@@ -20,20 +31,16 @@ export const PhotoBar = (): React.ReactElement => {
   };
 
   const handleDeleteAndClose = (): void => {
-    handleDelete();
+    onDelete();
     setIsDeletePopupOpen(false);
   };
 
   return (
     <div className="shrink-0 px-5 pb-8.5 pt-2">
-      <div className="flex h-11 items-center rounded-full bg-white pl-5 pr-1 drop-shadow-[0_0_15px_rgba(0,0,0,0.1)]">
-        <div className="relative">
-          <button
-            type="button"
-            aria-label={photoUrl ? "사진 옵션" : "사진 추가"}
-            onClick={photoUrl ? handlePhotoClick : handleClick}
-          >
-            {photoUrl ? (
+      <div className="flex h-11 items-center rounded-full bg-white pl-5 pr-1 shadow-[0px_0px_15px_rgba(0,0,0,0.1)]">
+        <div className="relative flex items-center">
+          {photoUrl ? (
+            <button type="button" aria-label="사진 옵션" onClick={handlePhotoClick}>
               <Image
                 src={photoUrl}
                 alt="선택한 사진"
@@ -42,10 +49,12 @@ export const PhotoBar = (): React.ReactElement => {
                 className="size-7.5 rounded-sm object-cover"
                 unoptimized
               />
-            ) : (
+            </button>
+          ) : (
+            <button type="button" aria-label="사진 추가" onClick={onAdd}>
               <IcCameraAdd size={30} className="text-gray-400" />
-            )}
-          </button>
+            </button>
+          )}
 
           {isDeletePopupOpen && (
             <div
@@ -69,7 +78,7 @@ export const PhotoBar = (): React.ReactElement => {
           type="file"
           accept="image/*"
           className="hidden"
-          onChange={handleFileChange}
+          onChange={onFileChange}
         />
       </div>
     </div>

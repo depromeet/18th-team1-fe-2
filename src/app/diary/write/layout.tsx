@@ -2,9 +2,7 @@
 
 import type { ReactNode } from "react";
 
-import { PhotoBar } from "@/features/diary-write";
 import { useViewportHeight } from "@/shared/hooks/useViewportHeight";
-import { CheckButton, Header } from "@/widgets/header";
 
 const DiaryWriteLayout = ({ children }: { children: ReactNode }): React.ReactElement => {
   useViewportHeight();
@@ -13,21 +11,7 @@ const DiaryWriteLayout = ({ children }: { children: ReactNode }): React.ReactEle
       className="fixed inset-x-0 top-0 flex flex-col bg-gray-50 md:left-1/2 md:right-auto md:-translate-x-1/2 md:w-93.75"
       style={{ height: "var(--vh, 100dvh)" }}
     >
-      <div className="shrink-0 mt-5">
-        <Header
-          title="일기"
-          right={
-            <CheckButton
-              isChecked={true}
-              onClick={(): void => {
-                // TODO: 일기 저장 연동
-              }}
-            />
-          }
-        />
-      </div>
       <main className="flex min-h-0 flex-1 flex-col overflow-hidden">{children}</main>
-      <PhotoBar />
     </div>
   );
 };
