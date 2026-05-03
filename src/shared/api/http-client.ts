@@ -1,6 +1,6 @@
 import { ApiError, type ApiErrorCode } from "./error";
 
-const BASE_URL: string = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+export const BASE_URL: string = `${process.env.NEXT_PUBLIC_API_BASE_URL ?? ""}/api`;
 
 const STATUS_TO_ERROR_CODE: Record<number, ApiErrorCode> = {
   401: "UNAUTHORIZED",
