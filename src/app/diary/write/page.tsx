@@ -1,9 +1,17 @@
-const DiaryWritePage = (): React.ReactElement => {
-  return (
-    <div className="flex min-h-dvh items-center justify-center">
-      <p className="text-muted-foreground">일기 작성 (준비 중)</p>
-    </div>
-  );
+import { DiaryWriteView } from "@/features/diary-write";
+import { MOCK_SENTENCES } from "@/mock";
+
+const DiaryWritePage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ sentenceId?: string }>;
+}): Promise<React.ReactElement | null> => {
+  const { sentenceId } = await searchParams;
+  const sentence = MOCK_SENTENCES.find((s) => s.id === sentenceId);
+
+  if (!sentence) return null;
+
+  return <DiaryWriteView sentence={sentence} />;
 };
 
 export default DiaryWritePage;

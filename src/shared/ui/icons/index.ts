@@ -1,6 +1,7 @@
 export { BaseIcon } from "./BaseIcon";
 export { IcBack } from "./IcBack";
 export { IcCalendar } from "./IcCalendar";
+export { IcCameraAdd } from "./IcCameraAdd";
 export { IcCheck } from "./IcCheck";
 export { IcEdit } from "./IcEdit";
 export { IcGoogle } from "./IcGoogle";

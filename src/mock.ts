@@ -139,3 +139,4 @@ export const MOCK_SENTENCES: RecommendedSentence[] = [
 ];
 
 export const MOCK_SENTENCE: RecommendedSentence | undefined = MOCK_SENTENCES[0];
+
