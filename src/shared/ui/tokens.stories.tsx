@@ -32,7 +32,7 @@ const keyColors: { label: string; tw: string; hex: string }[] = [
 
 const keyColorVariations: { label: string; tw: string; hex: string }[] = [
   { label: "key-primary-0", tw: "bg-key-primary-0", hex: "#e1ddb5" },
-  { label: "key-primary-100", tw: "bg-key-primary-100", hex: "#e1ddb5" },
+  { label: "key-primary-100", tw: "bg-key-primary-100", hex: "#6a6103" },
   { label: "key-secondary-0", tw: "bg-key-secondary-0", hex: "#d1e9ea" },
   { label: "key-secondary-100", tw: "bg-key-secondary-100", hex: "#287f83" },
   { label: "key-secondary2-0", tw: "bg-key-secondary2-0", hex: "#e5d1d9" },
@@ -40,7 +40,7 @@ const keyColorVariations: { label: string; tw: string; hex: string }[] = [
 
 const subColors: { label: string; tw: string; hex: string }[] = [
   { label: "sub-saturday", tw: "bg-sub-saturday", hex: "#2e7df6" },
-  { label: "sub-sunday", tw: "bg-sub-sunday", hex: "#6b1e3c" },
+  { label: "sub-sunday", tw: "bg-sub-sunday", hex: "#ff6f36" },
 ];
 
 const semanticColors: { label: string; tw: string; hex: string }[] = [
